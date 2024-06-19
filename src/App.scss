@@ -81,35 +81,35 @@ body, html {
     }
 
     &.overlay-0 {
-      top: 28vh; /* Adjusted top right */
-      left: 52vw;
+      top: 29vh;
+      left: 54vw;
       width: 38vw;
-      height: 20vh;
+      height: 18vh;
       border-top-left-radius: 7.8vw 10.4vh;
       border-top-right-radius: 7.8vw 10.4vh;
     }
 
     &.overlay-1 {
-      top: 40vh; /* Adjusted top left */
-      left: 7vw;
+      top: 40vh;
+      left: 5vw;
       width: 38vw;
-      height: 20vh;
+      height: 17.6vh;
       border-top-left-radius: 7.8vw 10.4vh;
       border-top-right-radius: 7.8vw 10.4vh;
     }
 
     &.overlay-2 {
-      top: 52vh; /* Adjusted middle right */
-      left: 52vw;
+      top: 49.5vh;
+      left: 54vw;
       width: 38vw;
-      height: 20vh;
+      height: 18vh;
       border-top-left-radius: 7.8vw 10.4vh;
       border-top-right-radius: 7.8vw 10.4vh;
     }
 
     &.overlay-3 {
-      top: 64vh; /* Adjusted bottom left */
-      left: 7vw;
+      top: 60vh;
+      left: 5vw;
       width: 38vw;
       height: 20vh;
       border-top-left-radius: 7.8vw 10.4vh;
@@ -117,10 +117,10 @@ body, html {
     }
 
     &.overlay-4 {
-      top: 76vh; /* Adjusted bottom right */
-      left: 52vw;
+      top: 70vh;
+      left: 54vw;
       width: 38vw;
-      height: 20vh;
+      height: 19vh;
       border-top-left-radius: 7.8vw 10.4vh;
       border-top-right-radius: 7.8vw 10.4vh;
     }
@@ -169,17 +169,21 @@ button {
 
 .navigation-buttons {
   position: absolute;
-  bottom: 1vh; /* Adjusted for viewport height */
-  left: 2vw; /* Adjusted for viewport width */
+  top: 3.4rem; /* Move to the top */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 2vw; /* Adjusted for spacing between buttons */
+  gap: 10px;
 
   .nav-button {
-    padding: 1vh 2vw; /* Adjusted padding for viewport units */
-    font-size: 3vw; /* Adjusted font size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px; /* Adjust width for oval shape */
+    height: 40px; /* Adjust height for oval shape */
     cursor: pointer;
     border: none;
-    border-radius: 2vw; /* Adjusted border radius for rounded corners */
+    border-radius: 20px; /* Oval shape */
     background: #5f3932;
     color: #fff;
     transition: background 0.3s, transform 0.3s;
@@ -192,6 +196,10 @@ button {
 
     &:active {
       transform: scale(0.95);
+    }
+
+    i {
+      font-size: 1.5em;
     }
   }
 }

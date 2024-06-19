@@ -57,8 +57,8 @@ const Day4 = () => {
         ))}
       </div>
       <div className="navigation-buttons">
-        <button onClick={() => navigate('/day-3')} className="nav-button prev-button">← Previous</button>
-        <button onClick={() => navigate('/day-5')} className="nav-button next-button">Next →</button>
+        <button onClick={() => navigate('/day-3')} className="nav-button prev-button">←</button>
+        <button onClick={() => navigate('/day-5')} className="nav-button next-button">→</button>
       </div>
       <Modal show={showModal} onClose={handleCloseModal} message={modalMessage} />
     </div>

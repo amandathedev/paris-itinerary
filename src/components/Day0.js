@@ -9,7 +9,7 @@ const Day0 = () => {
   return (
     <div className="App" style={{ backgroundImage: `url(${currentImage})` }}>
       <div className="navigation-buttons">
-        <button onClick={() => navigate('/day-1')} className="nav-button next-button">Next →</button>
+        <button onClick={() => navigate('/day-1')} className="nav-button next-button">→</button>
       </div>
     </div>
   );

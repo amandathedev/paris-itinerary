@@ -34,7 +34,7 @@ const Day2 = () => {
     setShowModal(false);
   };
 
-  const currentImage = `${process.env.PUBLIC_URL}/images/day-2v2.png`;
+  const currentImage = `${process.env.PUBLIC_URL}/images/day-2.png`;
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -79,8 +79,8 @@ const Day2 = () => {
         ))}
       </div>
       <div className="navigation-buttons">
-        <button onClick={() => navigate('/day-1')} className="nav-button prev-button">← Previous</button>
-        <button onClick={() => navigate('/day-3')} className="nav-button next-button">Next →</button>
+        <button onClick={() => navigate('/day-1')} className="nav-button prev-button">←</button>
+        <button onClick={() => navigate('/day-3')} className="nav-button next-button">→</button>
       </div>
       <Modal show={showModal} onClose={handleCloseModal} message={modalMessage} />
     </div>

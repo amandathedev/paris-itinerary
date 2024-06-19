@@ -10,8 +10,8 @@ const Day1 = () => {
     <div className="App" style={{ backgroundImage: `url(${currentImage})` }}>
       {/* No overlays for Day 1, but we can add trivia or other content later */}
       <div className="navigation-buttons">
-        <button onClick={() => navigate('/')} className="nav-button prev-button">← Previous</button>
-        <button onClick={() => navigate('/day-2')} className="nav-button next-button">Next →</button>
+        <button onClick={() => navigate('/')} className="nav-button prev-button">←</button>
+        <button onClick={() => navigate('/day-2')} className="nav-button next-button">→</button>
       </div>
     </div>
   );
