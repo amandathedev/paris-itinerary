@@ -52,7 +52,7 @@ const Day2 = () => {
         });
       });
     }
-  }, []);
+  }, [revealItem]);
 
   return (
     <div className="App" style={{ backgroundImage: `url(${currentImage})` }}>
