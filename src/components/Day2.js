@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import questions, { checkAnswer } from '../utils/questions';
 import Modal from './Modal';
-import '../App.scss'; // Use the same SCSS file
+import '../App.scss';
 
 const Day2 = () => {
   const [revealed, setRevealed] = useState([false, false, false, false, false]);
@@ -17,6 +17,10 @@ const Day2 = () => {
     setUserAnswers(newUserAnswers);
   };
 
+  const revealItem = useCallback((index) => {
+    setRevealed(revealed.map((item, i) => (i === index ? true : item)));
+  }, [revealed]);
+
   const handleSubmit = (index) => {
     if (checkAnswer('day2', index, userAnswers[index])) {
       revealItem(index);
@@ -26,15 +30,11 @@ const Day2 = () => {
     }
   };
 
-  const revealItem = (index) => {
-    setRevealed(revealed.map((item, i) => (i === index ? true : item)));
-  };
-
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
-  const currentImage = `${process.env.PUBLIC_URL}/images/day-2.png`;
+  const currentImage = `${process.env.PUBLIC_URL}/images/day-2v2.png`;
 
   useEffect(() => {
     if ("geolocation" in navigator) {

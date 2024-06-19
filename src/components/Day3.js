@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import questions, { checkAnswer } from '../utils/questions';
 import Modal from './Modal';
@@ -17,6 +17,10 @@ const Day3 = () => {
     setUserAnswers(newUserAnswers);
   };
 
+  const revealItem = useCallback((index) => {
+    setRevealed(revealed.map((item, i) => (i === index ? true : item)));
+  }, [revealed]);
+
   const handleSubmit = (index) => {
     if (checkAnswer('day3', index, userAnswers[index])) {
       revealItem(index);
@@ -24,10 +28,6 @@ const Day3 = () => {
       setModalMessage("Incorrect answer. Try again!");
       setShowModal(true);
     }
-  };
-
-  const revealItem = (index) => {
-    setRevealed(revealed.map((item, i) => (i === index ? true : item)));
   };
 
   const handleCloseModal = () => {
