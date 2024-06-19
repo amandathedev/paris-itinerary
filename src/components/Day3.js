@@ -11,37 +11,6 @@ const Day3 = () => {
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (questions.day3[0].type === "geolocation") {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        const { latitude: targetLat, longitude: targetLng, radius } = questions.day3[0].location;
-
-        const distance = getDistanceFromLatLonInKm(latitude, longitude, targetLat, targetLng);
-        if (distance <= radius / 1000) {
-          revealItem(0);
-        }
-      });
-    }
-  }, []);
-
-  const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Radius of the earth in km
-    const dLat = deg2rad(lat2 - lat1);
-    const dLon = deg2rad(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const d = R * c; // Distance in km
-    return d;
-  }
-
-  const deg2rad = (deg) => {
-    return deg * (Math.PI / 180);
-  }
-
   const handleInputChange = (index, value) => {
     const newUserAnswers = [...userAnswers];
     newUserAnswers[index] = value;
@@ -67,20 +36,38 @@ const Day3 = () => {
 
   const currentImage = `${process.env.PUBLIC_URL}/images/day-3.png`;
 
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        questions.day3.forEach((question, index) => {
+          if (question.type === "geolocation") {
+            const distance = Math.sqrt(
+              Math.pow(position.coords.latitude - question.location.latitude, 2) +
+              Math.pow(position.coords.longitude - question.location.longitude, 2)
+            );
+            if (distance < question.location.radius / 100000) {
+              revealItem(index);
+            }
+          }
+        });
+      });
+    }
+  }, []);
+
   return (
     <div className="App" style={{ backgroundImage: `url(${currentImage})` }}>
       <div className="overlays">
-        {revealed.map((isRevealed, index) => (
-          !isRevealed && (
+        {questions.day3.map((question, index) => (
+          !revealed[index] && (
             <div
               key={index}
-              className={`overlay overlay-${index} ${isRevealed ? 'hide' : ''}`}
+              className={`overlay overlay-${index}`}
             >
-              <div className="question">{questions.day3[index].question}</div>
-              {questions.day3[index].type !== "geolocation" && (
+              <div className="question">{question.question}</div>
+              {question.type !== 'geolocation' && (
                 <>
                   <input
-                    type={questions.day3[index].type === 'number' ? 'number' : 'text'}
+                    type={question.type === 'number' ? 'number' : 'text'}
                     value={userAnswers[index]}
                     onChange={(e) => handleInputChange(index, e.target.value)}
                   />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import questions, { checkAnswer } from '../utils/questions';
 import Modal from './Modal';
@@ -39,15 +39,15 @@ const Day4 = () => {
   return (
     <div className="App" style={{ backgroundImage: `url(${currentImage})` }}>
       <div className="overlays">
-        {revealed.map((isRevealed, index) => (
-          !isRevealed && (
+        {questions.day4.map((question, index) => (
+          !revealed[index] && (
             <div
               key={index}
-              className={`overlay overlay-${index} ${isRevealed ? 'hide' : ''}`}
+              className={`overlay overlay-${index}`}
             >
-              <div className="question">{questions.day4[index].question}</div>
+              <div className="question">{question.question}</div>
               <input
-                type={questions.day4[index].type === 'number' ? 'number' : 'text'}
+                type={question.type === 'number' ? 'number' : 'text'}
                 value={userAnswers[index]}
                 onChange={(e) => handleInputChange(index, e.target.value)}
               />

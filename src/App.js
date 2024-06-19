@@ -8,6 +8,7 @@ import Day4 from './components/Day4';
 import Day5 from './components/Day5';
 import Day6 from './components/Day6';
 import Day7 from './components/Day7';
+import Day8 from './components/Day8';
 import './App.scss';
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/day-5" element={<Day5 />} />
         <Route path="/day-6" element={<Day6 />} />
         <Route path="/day-7" element={<Day7 />} />
+        <Route path="/day-8" element={<Day8 />} />
         <Route path="/" element={<Day0 />} />
       </Routes>
     </Router>
