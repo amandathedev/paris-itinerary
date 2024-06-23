@@ -28,7 +28,7 @@ const questions = {
     {
       question: "Take a photo with the man walking through the wall.",
       type: "photo",
-      answer: "photo",
+      answer: "mur",
     },
   ],
   day3: [
@@ -36,7 +36,6 @@ const questions = {
       question: "How many steps to the top of the Sacré-Cœur?",
       type: "number",
       answer: 300,
-
     },
     {
       question: "Go to the location listed under the previous question",
@@ -158,8 +157,14 @@ const questions = {
 };
 
 export const checkAnswer = (day, index, userAnswer) => {
-  const correctAnswer = questions[day][index].answer?.toLowerCase();
-  return userAnswer.toLowerCase() === correctAnswer;
+  const correctAnswer = questions[day][index].answer;
+
+  if (typeof correctAnswer === 'number') {
+    return parseInt(userAnswer, 10) === correctAnswer;
+  } else {
+    return userAnswer.toLowerCase() === correctAnswer.toString().toLowerCase();
+  }
 };
+
 
 export default questions;
