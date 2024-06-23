@@ -4,7 +4,7 @@ import '../App.scss';
 
 const Day7 = () => {
   const navigate = useNavigate();
-  const currentImage = `${process.env.PUBLIC_URL}/images/day-7.png`;
+  const currentImage = `${process.env.PUBLIC_URL}/images/day-7v2.png`;
 
   return (
     <div className="App" style={{ backgroundImage: `url(${currentImage})` }}>
