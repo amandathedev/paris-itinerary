@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import questions, { checkAnswer } from '../utils/questions';
 import Modal from './Modal';
@@ -17,6 +17,10 @@ const Day5 = () => {
     setUserAnswers(newUserAnswers);
   };
 
+  const revealItem = useCallback((index) => {
+    setRevealed(revealed.map((item, i) => (i === index ? true : item)));
+  }, [revealed]);
+
   const handleSubmit = (index) => {
     if (checkAnswer('day5', index, userAnswers[index])) {
       revealItem(index);
@@ -26,15 +30,29 @@ const Day5 = () => {
     }
   };
 
-  const revealItem = (index) => {
-    setRevealed(revealed.map((item, i) => (i === index ? true : item)));
-  };
-
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
   const currentImage = `${process.env.PUBLIC_URL}/images/day-5.png`;
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        questions.day5.forEach((question, index) => {
+          if (question.type === "geolocation") {
+            const distance = Math.sqrt(
+              (Math.pow(position.coords.latitude - question.location.latitude, 2) +
+                Math.pow(position.coords.longitude - question.location.longitude, 2))
+            );
+            if (distance < (question.location.radius / 100000)) {
+              revealItem(index);
+            }
+          }
+        });
+      });
+    }
+  }, [revealItem]);
 
   return (
     <div className="App" style={{ backgroundImage: `url(${currentImage})` }}>
