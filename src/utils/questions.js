@@ -8,7 +8,7 @@ const questions = {
         longitude: 2.3522,
         radius: 20000,
       },
-      answer: null,
+      backupAnswer: "paris",
     },
     {
       question: "Find the route from the airport to our Airbnb on the metro map",
@@ -45,12 +45,12 @@ const questions = {
         longitude: 2.295,
         radius: 500, // 500 meters around the Arc de Triomphe
       },
-      answer: null,
+      backupAnswer: "arc",
     },
     {
-      question: "Find the historic passage named after a panoramic viewfinder. It's close to the Grands Boulevards metro station. Look for an entrance near the corner of Boulevard Montmartre and Rue Vivienne.",
+      question: "What is a boulangerie?",
       type: "text",
-      answer: "Passage des Panoramas",
+      answer: "bakery",
     },
     {
       question: "Find the historic passage named after a panoramic viewfinder near the Grands Boulevards station. Look for an entrance near the corner of Boulevard Montmartre and Rue Vivienne.",
@@ -60,12 +60,17 @@ const questions = {
         longitude: 2.3431,
         radius: 50,
       },
-      answer: null,
+      backupAnswer: "passage",
     },
     {
-      question: "Find a Space Invader",
-      type: "text",
-      answer: "invader",
+      question: "Navigate to the metro station named after a famous military school.",
+      type: "geolocation",
+      location: {
+        latitude: 48.8529,  // Latitude for École Militaire station
+        longitude: 2.3041,  // Longitude for École Militaire station
+        radius: 100,       // 100 meters radius
+      },
+      backupAnswer: "military",
     },
   ],
   day4: [
@@ -104,7 +109,7 @@ const questions = {
         longitude: 2.295,
         radius: 500, // 500 meters around the Arc de Triomphe
       },
-      answer: null,
+      backupAnswer: "arc",
     },
     {
       question: "Take a picture of the Mona Lisa",
@@ -130,7 +135,7 @@ const questions = {
   day6: [
     {
       question: "What do the French call the Mona Lisa",
-      type: "photo",
+      type: "text",
       answer: "La Joconde",
     },
     {
@@ -157,14 +162,16 @@ const questions = {
 };
 
 export const checkAnswer = (day, index, userAnswer) => {
-  const correctAnswer = questions[day][index].answer;
+  const question = questions[day][index];
+  const correctAnswer = question.answer;
 
-  if (typeof correctAnswer === 'number') {
+  if (question.type === 'number') {
     return parseInt(userAnswer, 10) === correctAnswer;
+  } else if (question.type === 'geolocation') {
+    return userAnswer.toLowerCase() === question.backupAnswer.toLowerCase();
   } else {
     return userAnswer.toLowerCase() === correctAnswer.toString().toLowerCase();
   }
 };
-
 
 export default questions;
