@@ -6,6 +6,7 @@ import '../App.scss';
 
 const Day2 = () => {
   const [revealed, setRevealed] = useState([false, false, false, false, false]);
+  const [showInputs, setShowInputs] = useState([false, false, false, false, false]);
   const [userAnswers, setUserAnswers] = useState(["", "", "", "", ""]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -32,6 +33,10 @@ const Day2 = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleTapOverlay = (index) => {
+    setShowInputs(showInputs.map((item, i) => (i === index ? true : item)));
   };
 
   const currentImage = `${process.env.PUBLIC_URL}/images/day-2.png`;
@@ -62,9 +67,10 @@ const Day2 = () => {
             <div
               key={index}
               className={`overlay overlay-${index}`}
+              onClick={() => handleTapOverlay(index)}
             >
               <div className="question">{question.question}</div>
-              {question.type !== 'geolocation' && (
+              {(showInputs[index] || question.type !== 'geolocation') && (
                 <>
                   <input
                     type={question.type === 'number' ? 'number' : 'text'}
