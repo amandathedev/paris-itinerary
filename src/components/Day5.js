@@ -34,7 +34,7 @@ const Day5 = () => {
     setShowModal(false);
   };
 
-  const currentImage = `${process.env.PUBLIC_URL}/images/day-5.png`;
+  const currentImage = `${process.env.PUBLIC_URL}/images/day-5v2.png`;
 
   useEffect(() => {
     if ("geolocation" in navigator) {
