@@ -48,9 +48,9 @@ const questions = {
       backupAnswer: "arc",
     },
     {
-      question: "What is a boulangerie?",
+      question: "Be in charge of the money for the day",
       type: "text",
-      answer: "bakery",
+      answer: "euros",
     },
     {
       question: "Find the historic passage named after a panoramic viewfinder near the Grands Boulevards station. Look for an entrance near the corner of Boulevard Montmartre and Rue Vivienne.",
