@@ -9,6 +9,7 @@ const Day5 = () => {
   const [userAnswers, setUserAnswers] = useState(["", "", "", "", ""]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const [geolocationFailed, setGeolocationFailed] = useState([false, false, false, false, false]);
   const navigate = useNavigate();
 
   const handleInputChange = (index, value) => {
@@ -38,21 +39,26 @@ const Day5 = () => {
 
   useEffect(() => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        questions.day5.forEach((question, index) => {
-          if (question.type === "geolocation") {
-            const distance = Math.sqrt(
-              (Math.pow(position.coords.latitude - question.location.latitude, 2) +
-                Math.pow(position.coords.longitude - question.location.longitude, 2))
-            );
-            if (distance < (question.location.radius / 100000)) {
-              revealItem(index);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          questions.day5.forEach((question, index) => {
+            if (question.type === "geolocation") {
+              const distance = Math.sqrt(
+                Math.pow(position.coords.latitude - question.location.latitude, 2) +
+                Math.pow(position.coords.longitude - question.location.longitude, 2)
+              );
+              if (distance < question.location.radius / 100000) {
+                revealItem(index);
+              }
             }
-          }
-        });
-      });
+          });
+        },
+        () => {
+          setGeolocationFailed(geolocationFailed.map((item, i) => questions.day5[i].type === "geolocation" ? true : item));
+        }
+      );
     }
-  }, [revealItem]);
+  }, [revealItem, geolocationFailed]);
 
   return (
     <div className="App" style={{ backgroundImage: `url(${currentImage})` }}>
@@ -62,14 +68,29 @@ const Day5 = () => {
             <div
               key={index}
               className={`overlay overlay-${index}`}
+              onClick={() => setGeolocationFailed(geolocationFailed.map((item, i) => i === index ? true : item))}
             >
               <div className="question">{question.question}</div>
-              <input
-                type={question.type === 'number' ? 'number' : 'text'}
-                value={userAnswers[index]}
-                onChange={(e) => handleInputChange(index, e.target.value)}
-              />
-              <button onClick={() => handleSubmit(index)}>Submit</button>
+              {geolocationFailed[index] && question.type === 'geolocation' && (
+                <>
+                  <input
+                    type="text"
+                    value={userAnswers[index]}
+                    onChange={(e) => handleInputChange(index, e.target.value)}
+                  />
+                  <button onClick={() => handleSubmit(index)}>Submit</button>
+                </>
+              )}
+              {question.type !== 'geolocation' && (
+                <>
+                  <input
+                    type={question.type === 'number' ? 'number' : 'text'}
+                    value={userAnswers[index]}
+                    onChange={(e) => handleInputChange(index, e.target.value)}
+                  />
+                  <button onClick={() => handleSubmit(index)}>Submit</button>
+                </>
+              )}
             </div>
           )
         ))}

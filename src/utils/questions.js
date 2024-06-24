@@ -109,7 +109,7 @@ const questions = {
         longitude: 2.3499,  // Longitude for Point Zero in Paris
         radius: 5,
       },
-      answer: "zero",
+      backupAnswer: "point",
     },
     {
       question: "Look for the bridge with distinctive stone masks decorating its sides and several arches. What is its name?",
@@ -168,10 +168,11 @@ export const checkAnswer = (day, index, userAnswer) => {
   if (question.type === 'number') {
     return parseInt(userAnswer, 10) === correctAnswer;
   } else if (question.type === 'geolocation') {
-    return userAnswer.toLowerCase() === question.backupAnswer.toLowerCase();
+    return question.backupAnswer && userAnswer.toLowerCase() === question.backupAnswer.toLowerCase();
   } else {
     return userAnswer.toLowerCase() === correctAnswer.toString().toLowerCase();
   }
 };
+
 
 export default questions;
