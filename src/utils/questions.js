@@ -127,16 +127,16 @@ const questions = {
       answer: "Denfert-Rochereau",
     },
     {
-      question: "What do the French call the Mona Lisa",
+      question: "What do the French call the Mona Lisa?",
       type: "text",
       answer: "La Joconde",
     },
   ],
   day6: [
     {
-      question: "What do the French call the Mona Lisa",
+      question: "French sometimes refere to France as a shape. What shape?",
       type: "text",
-      answer: "La Joconde",
+      answer: "hexagon",
     },
     {
       question: "Watch a street performer",
