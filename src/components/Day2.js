@@ -11,6 +11,7 @@ const Day2 = () => {
   const [userAnswers, setUserAnswers] = useState(["", "", "", "", ""]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const [showInputs, setShowInputs] = useState([false, false, false, false, false]);
   const navigate = useNavigate();
 
   const handleInputChange = (index, value) => {
@@ -66,8 +67,19 @@ const Day2 = () => {
             <div
               key={index}
               className={`overlay overlay-${index}`}
+              onClick={() => setShowInputs(showInputs.map((item, i) => i === index ? true : item))}
             >
               <div className="question">{question.question}</div>
+              {showInputs[index] && question.type === 'geolocation' && (
+                <>
+                  <input
+                    type="text"
+                    value={userAnswers[index]}
+                    onChange={(e) => handleInputChange(index, e.target.value)}
+                  />
+                  <button onClick={() => handleSubmit(index)}>Submit</button>
+                </>
+              )}
               {question.type !== 'geolocation' && (
                 <>
                   <input
