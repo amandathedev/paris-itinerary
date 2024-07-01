@@ -28,7 +28,7 @@ const questions = {
     {
       question: "Find a Space Invader",
       type: "photo",
-      answer: "space",
+      answer: "ecaps",
     },
   ],
   day3: [
@@ -82,7 +82,7 @@ const questions = {
     {
       question: "Say Bonjour to 5 people",
       type: "text",
-      answer: "bonjour",
+      answer: "hola",
     },
     {
       question: "Order food in French",
@@ -92,7 +92,7 @@ const questions = {
     {
       question: "Say merci to 5 people",
       type: "text",
-      answer: "merci",
+      answer: "gracias",
     },
     {
       question: "Try escargot or froglegs",

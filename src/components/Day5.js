@@ -5,7 +5,10 @@ import Modal from './Modal';
 import '../App.scss'; // Use the same SCSS file
 
 const Day5 = () => {
-  const [revealed, setRevealed] = useState([false, false, false, false, false]);
+  const [revealed, setRevealed] = useState(
+    JSON.parse(localStorage.getItem('day5_revealed')) || [false, false, false, false, false]
+  );
+  const [showInputs, setShowInputs] = useState([false, false, false, false, false]);
   const [userAnswers, setUserAnswers] = useState(["", "", "", "", ""]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -19,7 +22,9 @@ const Day5 = () => {
   };
 
   const revealItem = useCallback((index) => {
-    setRevealed(revealed.map((item, i) => (i === index ? true : item)));
+    const newRevealed = revealed.map((item, i) => (i === index ? true : item));
+    setRevealed(newRevealed);
+    localStorage.setItem('day5_revealed', JSON.stringify(newRevealed));
   }, [revealed]);
 
   const handleSubmit = (index) => {
@@ -33,6 +38,10 @@ const Day5 = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleTapOverlay = (index) => {
+    setShowInputs(showInputs.map((item, i) => (i === index ? true : item)));
   };
 
   const currentImage = `${process.env.PUBLIC_URL}/images/day-5v2.png`;
@@ -68,20 +77,10 @@ const Day5 = () => {
             <div
               key={index}
               className={`overlay overlay-${index}`}
-              onClick={() => setGeolocationFailed(geolocationFailed.map((item, i) => i === index ? true : item))}
+              onClick={() => handleTapOverlay(index)}
             >
               <div className="question">{question.question}</div>
-              {geolocationFailed[index] && question.type === 'geolocation' && (
-                <>
-                  <input
-                    type="text"
-                    value={userAnswers[index]}
-                    onChange={(e) => handleInputChange(index, e.target.value)}
-                  />
-                  <button onClick={() => handleSubmit(index)}>Submit</button>
-                </>
-              )}
-              {question.type !== 'geolocation' && (
+              {(showInputs[index] || question.type !== 'geolocation') && (
                 <>
                   <input
                     type={question.type === 'number' ? 'number' : 'text'}
