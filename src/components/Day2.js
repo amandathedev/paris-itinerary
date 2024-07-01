@@ -2,18 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import questions, { checkAnswer } from '../utils/questions';
 import Modal from './Modal';
-import '../App.scss';
+import '../App.scss'; // Use the same SCSS file
 
 const Day2 = () => {
   const [revealed, setRevealed] = useState(
     JSON.parse(localStorage.getItem('day2_revealed')) || [false, false, false, false, false]
   );
-  const [showInputs, setShowInputs] = useState([false, false, false, false, false]);
   const [userAnswers, setUserAnswers] = useState(["", "", "", "", ""]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
-
 
   const handleInputChange = (index, value) => {
     const newUserAnswers = [...userAnswers];
