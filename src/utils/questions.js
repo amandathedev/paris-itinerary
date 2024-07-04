@@ -122,9 +122,9 @@ const questions = {
       answer: "Pont des Arts",
     },
     {
-      question: "Find the secret tunnels beneath the city. What is the historical marker you see at the entrance?",
+      question: "Find a geocache or three space invaders",
       type: "text",
-      answer: "Denfert-Rochereau",
+      answer: "Check",
     },
     {
       question: "What do the French call the Mona Lisa?",
