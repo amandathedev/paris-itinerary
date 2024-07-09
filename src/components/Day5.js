@@ -44,7 +44,7 @@ const Day5 = () => {
     setShowInputs(showInputs.map((item, i) => (i === index ? true : item)));
   };
 
-  const currentImage = `${process.env.PUBLIC_URL}/images/day-5v2.png`;
+  const currentImage = `${process.env.PUBLIC_URL}/images/day-5.png`;
 
   useEffect(() => {
     if ("geolocation" in navigator) {
